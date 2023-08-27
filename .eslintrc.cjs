@@ -9,7 +9,7 @@ const config = {
         ecmaVersion: 'latest',
         sourceType: 'module'
     },
-    plugins: ['react', 'import', 'prettier', '@typescript-eslint'],
+    plugins: ['react', 'import', '@typescript-eslint'],
     extends: [
         'next',
         'airbnb',
@@ -25,6 +25,9 @@ const config = {
         // Feel free to reconfigure them to your own preference.
         '@typescript-eslint/array-type': 'off',
         '@typescript-eslint/consistent-type-definitions': 'off',
+
+        'arrow-body-style': 'off',
+        '@typescript-eslint/comma-dangle': ['error', 'never'],
 
         '@typescript-eslint/no-use-before-define': ['off', { typedefs: false }],
 
@@ -47,7 +50,10 @@ const config = {
         '@typescript-eslint/no-unused-vars': ['off', { argsIgnorePattern: '^_' }],
 
         indent: ['off', 4],
-        '@typescript-eslint/indent': ['off', 4]
+        '@typescript-eslint/indent': ['off', 4],
+
+        semi: ['off', 'never'],
+        '@typescript-eslint/semi': ['off', 'never']
     },
     settings: {
         react: {

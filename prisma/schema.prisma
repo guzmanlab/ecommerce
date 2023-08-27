@@ -16,7 +16,7 @@ datasource db {
 
 model Example {
     id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-    userId String
+    userId String @db.Uuid
     user   User   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 
     createdAt DateTime @default(now()) @map("created_at")
@@ -28,7 +28,7 @@ model Example {
 // Necessary for Next auth
 model Account {
     id                       String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-    userId                   String
+    userId                   String  @db.Uuid
     type                     String
     provider                 String
     providerAccountId        String
@@ -49,11 +49,16 @@ model Account {
 model Session {
     id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
     sessionToken String   @unique
-    userId       String
+    userId       String   @db.Uuid
     expires      DateTime
     user         User     @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 
     @@map("sessions")
+}
+
+enum UserType {
+    User
+    Admin
 }
 
 model User {
@@ -65,6 +70,7 @@ model User {
     image         String?
     bio           String?   @db.Text
     password      String?
+    userType      UserType  @default(User)
 
     createdAt DateTime @default(now()) @map("created_at")
     updatedAt DateTime @default(now()) @map("updated_at")
